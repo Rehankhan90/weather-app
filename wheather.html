@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wheather</title>
+    <link rel="stylesheet" href="wheather.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="top_border">
+            <div class="input_text">
+                <input type="text" placeholder="Enter Your City " height="300px" width="1000px" class="input_box">
+
+            </div>
+            <div>
+                <button class="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+        <div class="weather_display">
+            <div class="weather_img">
+                <img src="https://img.freepik.com/premium-vector/flat-sun-cloud-weather-web-icon_593483-21.jpg?size=626&ext=jpg"
+                    alt="wheather" class="wh_img">
+                <h1 class="temp">41°C</h1>
+                <p class="city">Delhi</p>
+            </div>
+
+            <div class="two_concept">
+                <div class="humidity">
+                    <img src="https://thumbs.dreamstime.com/b/white-line-meteorology-thermometer-measuring-icon-isolated-black-background-equipment-showing-hot-cold-weather-square-color-190302856.jpg"
+                        alt="humidity">
+                    <h1 class="humip">16%</h1>
+                    <p cl>Humidity</p>
+
+                </div>
+                <div class="wind">
+
+                    <img src="https://png.pngtree.com/png-vector/20190726/ourmid/pngtree-wind-icon-for-your-project-png-image_1599774.jpg"
+                        alt="wind">
+                    <h1 class="winds">18 km/h</h1>
+                    <p>Wind</p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const input_tex = document.querySelector('.input_box');
+        const searchbtn = document.querySelector('.search');
+        const iamage = document.querySelector('.wh_img');
+        async function getweather(city) {
+            var res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=c2010d5c8c7dd8a5449d8baca5420705&units=metric`);
+            var data = await res.json();
+            console.log(data);
+            document.querySelector('.temp').innerHTML = Math.round(data.main.temp) + "°C";
+            document.querySelector('.city').innerHTML = data.name;
+            document.querySelector('.humip').innerHTML = Math.round(data.main.humidity) + "%";
+            document.querySelector('.winds').innerHTML = Math.round(data.wind.speed) + " km/h";
+       
+            // const weatherImage = document.getElementById('wh_img');
+
+            // if (temp < 0) {
+            //     weatherImage.src = "https://t3.ftcdn.net/jpg/05/52/37/06/360_F_552370668_pAt3NDAivop2N9ANcgLx2OrDqXTwQZNq.jpg"; // Replace with your cold weather image URL
+            // } else if (temp < 10) {
+            //     weatherImage.src = 'https://media.istockphoto.com/id/1257951336/photo/transparent-umbrella-under-rain-against-water-drops-splash-background-rainy-weather-concept.jpg?s=612x612&w=0&k=20&c=lNvbIw1wReb-owe7_rMgW8lZz1zElqs5BOY1AZhyRXs='
+            //     w
+            // }
+            // else if (temp >= 10 && temp < 25) {
+            //     weatherImage.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXTxya0l-6hZ3H5U6PMxlL2WMtUQQxmRPqaB29zJwWKg&s'; // Replace with your moderate weather image URL
+            // } else {
+            //     weatherImage.src = 'https://i.pinimg.com/564x/92/94/4b/92944b578af40630ad4c2b7627d25978.jpg'; // Replace with your hot weather image URL
+            // }
+
+        }
+
+        searchbtn.addEventListener('click', () => {
+            getweather(input_tex.value);
+        });
+    </script>
+
+</body>
+
+</html>
